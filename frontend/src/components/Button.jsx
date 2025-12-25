@@ -1,7 +1,9 @@
-const Button = ({text, buttonColor}) => {
+import { Link } from "react-router-dom"
+
+const Button = ({text, buttonColor, url}) => {
   return (
     <>
-        <a className={`btn ${buttonColor}`} href="">{text}</a>
+        <Link className={`btn ${buttonColor}`} to={url}>{text}</Link>
     </>
   )
 }
