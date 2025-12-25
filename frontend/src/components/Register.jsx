@@ -12,27 +12,27 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleRegistration = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    // Handle registration logic here
-    const userData = {
-      username,
-      email,
-      password
-    }
-    await axios.post("http://localhost:8000/api/v1/register/", userData)
-      .then(response => {
-        console.log("Registration successful:", response.data)
-        setSuccess(true)
-        setErrors({})
-      })
-      .catch(error => {
-        setErrors(error.response.data)
-        console.error("There was an error registering!", error.response.data)
-      }).finally(() => {
-        setIsLoading(false)
-      })
+  e.preventDefault();
+  setIsLoading(true);
+  setErrors({}); // Clear previous errors at the start
+
+  const userData = { username, email, password };
+
+  try {
+    const response = await axios.post("http://localhost:8000/api/v1/register/", userData);
+    
+    console.log("Registration successful:", response.data);
+    setSuccess(true);
+  } catch (error) {
+    // 2025 Best Practice: Use optional chaining to prevent crashes if server is down
+    const backendErrors = error.response?.data || { message: "Network error. Please try again." };
+    setErrors(backendErrors);
+    console.error("Registration error:", backendErrors);
+  } finally {
+    // This always runs, whether success or catch occurred
+    setIsLoading(false);
   }
+};
 
   return (
     <>
