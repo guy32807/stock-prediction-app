@@ -14,17 +14,25 @@ const Header = () => {
         </Link>
         <div>
           {isAuthenticated ? (
-            <button
-              className="btn btn-danger"
-              onClick={() => {
-                localStorage.removeItem("access_token");
-                localStorage.removeItem("refresh_token");
-                setIsAuthenticated(false);
-                navigate("/login");
-              }}
-            >
-              Logout
-            </button>
+            <>
+              <Button
+                text="Dashboard"
+                buttonColor="btn-info"
+                url={"/dashboard"}
+              />
+              &nbsp;
+              <button
+                className="btn btn-danger"
+                onClick={() => {
+                  localStorage.removeItem("access_token");
+                  localStorage.removeItem("refresh_token");
+                  setIsAuthenticated(false);
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <>
               <Button

@@ -9,7 +9,7 @@ const Main = () => {
       <p className="lead">Your one-stop solution for accurate stock market predictions.</p>
       <hr className="my-4" />
       <p>Get started by registering an account or logging in to access personalized features.</p>
-      <Button text="Get Started" buttonColor='btn-info'/>
+      <Button text="Get Started" buttonColor='btn-info' url='/dashboard'/>
     </div>  
     </div>
    </>

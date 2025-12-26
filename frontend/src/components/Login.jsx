@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import Button from "./Button"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../AuthProvider";
+import axiosInstance from "../axiosInstance"
 
 const Login = () => {
   const [username, setUsername] = useState("")
@@ -23,14 +23,14 @@ const Login = () => {
 
   try {
     // 1. Assign the result directly to a variable
-    const response = await axios.post("http://localhost:8000/api/v1/token/", userData);
+    const response = await axiosInstance.post("/token/", userData);
 
     // 2. Logic happens linearly - no more .then()
     localStorage.setItem("access_token", response.data.access);
     localStorage.setItem("refresh_token", response.data.refresh);
     setSuccess(true);
     setIsAuthenticated(true);
-    navigate("/"); // Redirect to dashboard after successful login
+    navigate("/dashboard"); // Redirect to dashboard after successful login
   } catch (error) {
     // 3. Catch all errors (network, 4xx, 5xx) here
     // Always check if error.response exists to avoid crashes
